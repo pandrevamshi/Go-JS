@@ -4,7 +4,7 @@ const consumer = new Kafka.KafkaConsumer({
     'group.id': 'my-consumer-group',
     'metadata.broker.list': 'localhost:9092', // Comma-separated list of Kafka brokers
   });
-
+console.log("I'm Alive");
 consumer.connect();
 consumer.on('ready', () => {
 consumer.subscribe(['quickstart-events']);
