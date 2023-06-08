@@ -11,8 +11,19 @@ consumer.subscribe(['quickstart-events']);
 consumer.consume();
 });
 consumer.on('data', (message) => {
-// Handle the received message
-console.log(`Received message: ${message.value.toString()}`);
+
+const key = message.key && message.key.toString();
+const value = message.value && message.value.toString();
+
+// Process the message with the desired key
+if (key === 'my-key') {
+    console.log(`Received message with key '${key}': ${value}`);
+    // Handle the message logic here
+
+    // Manually commit the offset for the processed message
+    consumer.commitMessage(message);
+}
+
 });
   
 consumer.on('event.error', (err) => {
@@ -22,4 +33,3 @@ consumer.on('event.error', (err) => {
 process.on('SIGINT', () => {
     consumer.disconnect();
   });
-  
